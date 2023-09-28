@@ -97,7 +97,7 @@ async def truth(ctx):
 #Dare game.............................................................(Upgrade it on a daily basis)
 @client.command(pass_context=True)
 async def dare(ctx):
-    a=""
+    a="Show your weirdest pic available"
     b=""
     c=""
     d=""
