@@ -1,3 +1,6 @@
+#This code has been created by Kartik The Great
+#in honour of himself being the singlest person alive
+
 import discord
 from discord.ext import commands
 from discord import FFmpegPCMAudio
