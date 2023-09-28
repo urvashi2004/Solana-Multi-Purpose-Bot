@@ -97,11 +97,11 @@ async def truth(ctx):
 #Dare game.............................................................(Upgrade it on a daily basis)
 @client.command(pass_context=True)
 async def dare(ctx):
-    a="Dance with your underwear on your head."
-    b="Prank call a random number and talk as their reincarnated partner."
-    c="Sing a song from the window at the top of your voice."
-    d="Put on a frock over your neck and dance on Hotel Calofornia."
-    e="Pretend you are a soulder and have gone on battlefield."
+    a="Dance with your underwear in your hand"
+    b="Sing a song on the top of your lungs from your window"
+    c="Put on a frock on your neck and dance on Hotel California"
+    d="Call a random number and talk like you are their previous reincarnation's partner"
+    e="Show your weirdest photo available"
     l2=[a,b,c,d,e]
     await ctx.send(l2[random.randint(0,len(l2)-1)])
 
