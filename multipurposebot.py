@@ -5,6 +5,12 @@ import discord
 from discord.ext import commands
 from discord import FFmpegPCMAudio
 import random
+from time import time
+
+def randnum():
+    rand = str(round(time(),7))
+    rand2 = str(rand[::-1])
+    return rand2[0]
 
 #intends and prefix commands .....................................
 intents = discord.Intents.all()
@@ -91,8 +97,13 @@ async def truth(ctx):
     c="Who do you have crush on?"
     d="What's the most embarrassing moment of your life?"
     e="What's your favourite sport?"
-    l1=[a,b,c,d,e]
-    await ctx.send(l1[random.randint(0,len(l1)-1)])
+    f="When was the last time you cried?"
+    g="What's your biggest fear? (not philosophical)"
+    h="Your best ever pickup line?"
+    i="Who is your comfort character?"
+    j="What's your weird fantasy?"
+    l1=[a,b,c,d,e,f,g,h,i,j]
+    await ctx.send(l1[randnum])
 
 #Dare game.............................................................(Upgrade it on a daily basis)
 @client.command(pass_context=True)
@@ -102,8 +113,13 @@ async def dare(ctx):
     c="Put on a frock on your neck and dance on Hotel California"
     d="Call a random number and talk like you are their previous reincarnation's partner"
     e="Show your weirdest photo available"
-    l2=[a,b,c,d,e]
-    await ctx.send(l2[random.randint(0,len(l2)-1)])
+    f="Jump on your bed thrice and shout MarcoPolo"
+    g="Speak out your will as if your funeral is tomorrow"
+    h="Put your craziest clip online"
+    i="Kiss an item from your room (tongue involved)"
+    j="Balance a steel utensil on your nose and walk around for 30 seconds."
+    l2=[a,b,c,d,e,f,g,h,i,j]
+    await ctx.send(l2[randnum])
 
 #token key ..............................................................
 client.run("MTE1NDc3MzM5MjEzODk2OTIxMA.GPqNQP.cktcq3EOFMxaUxjPqQsmU770BYQpIQD-fh--8U")  #Important 
