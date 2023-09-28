@@ -4,6 +4,7 @@
 import discord
 from discord.ext import commands
 from time import time
+from youtube_dl import YoutubeDL
 
 #intends and prefix commands .....................................
 intents = discord.Intents.all()
@@ -12,6 +13,7 @@ client=commands.Bot(command_prefix ='&',intents=intents)
 #showing that the bot has started..................................
 @client.event
 async def on_ready():
+    await client.change_presence(status=discord.Status.idle,activity=discord.Game(type=discord.ActivityType.listening,name='&commands'))
     print("Started")
     
 #status command .................................................
@@ -22,7 +24,7 @@ async def status(ctx):
 #show commands command ............................................   
 @client.command()
 async def commands(ctx):
-    await ctx.send("status\nowners\nconnect\nleave\nplay\npause\nresume\nstop")
+    await ctx.send("status\nowners\nconnect\nleave\ntruth\ndare\npause\nresume\nstop")
 
 #owners command ...................................................
 @client.command()
