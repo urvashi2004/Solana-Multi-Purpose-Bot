@@ -3,14 +3,7 @@
 
 import discord
 from discord.ext import commands
-from discord import FFmpegPCMAudio
-import random
 from time import time
-
-def randnum():
-    rand = str(round(time(),7))
-    rand2 = str(rand[::-1])
-    return rand2[0]
 
 #intends and prefix commands .....................................
 intents = discord.Intents.all()
@@ -101,9 +94,12 @@ async def truth(ctx):
     g="What's your biggest fear? (not philosophical)"
     h="Your best ever pickup line?"
     i="Who is your comfort character?"
-    j="What's your weird fantasy?"
+    j="What's your weirdest fantasy?"
     l1=[a,b,c,d,e,f,g,h,i,j]
-    await ctx.send(l1[randnum])
+    for i in range(0,10):
+        rand = str(round(time(),7))
+        rand2 = str(rand[::-1])
+    await ctx.send(l1[int(rand2[0])])
 
 #Dare game.............................................................(Upgrade it on a daily basis)
 @client.command(pass_context=True)
@@ -119,7 +115,10 @@ async def dare(ctx):
     i="Kiss an item from your room (tongue involved)"
     j="Balance a steel utensil on your nose and walk around for 30 seconds."
     l2=[a,b,c,d,e,f,g,h,i,j]
-    await ctx.send(l2[randnum])
+    for i in range(0,10):
+        rand = str(round(time(),7))
+        rand2 = str(rand[::-1])
+    await ctx.send(l2[int(rand2[0])])
 
 #token key ..............................................................
 client.run("MTE1NDc3MzM5MjEzODk2OTIxMA.GPqNQP.cktcq3EOFMxaUxjPqQsmU770BYQpIQD-fh--8U")  #Important 
