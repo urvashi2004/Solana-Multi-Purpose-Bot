@@ -21,10 +21,23 @@ async def on_ready():
 async def status(ctx):
     await ctx.send("This bot is under construction . Please wait patiently")
 
+#ping command............................................
+@client.command()
+async def ping(ctx):
+    if round(client.latency * 1000) <= 50:
+        embed=discord.Embed(title="PING", description=f":ping_pong: The ping is **{round(client.latency *1000)}** milliseconds!", color=0x44ff44)
+    elif round(client.latency * 1000) <= 100:
+        embed=discord.Embed(title="PING", description=f":ping_pong: The ping is **{round(client.latency *1000)}** milliseconds!", color=0xffd000)
+    elif round(client.latency * 1000) <= 200:
+        embed=discord.Embed(title="PING", description=f":ping_pong: The ping is **{round(client.latency *1000)}** milliseconds!", color=0xff6600)
+    else:
+        embed=discord.Embed(title="PING", description=f":ping_pong: The ping is **{round(client.latency *1000)}** milliseconds!", color=0x990000)
+    await ctx.send(embed=embed)
+
 #show commands command ............................................   
 @client.command()
 async def commands(ctx):
-    await ctx.send("status\nowners\nconnect\nleave\ntruth\ndare\npause\nresume\nstop")
+    await ctx.send("status\nowners\nconnect\nleave\ntruth\ndare\npause\nresume\nstop\nping")
 
 #owners command ...................................................
 @client.command()
@@ -101,7 +114,8 @@ async def truth(ctx):
     for i in range(0,10):
         rand = str(round(time(),7))
         rand2 = str(rand[::-1])
-    await ctx.send(l1[int(rand2[0])])
+    embed=discord.Embed(title="TRUTH" , description=l1[int(rand2[0])],color=0x44ff44)
+    await ctx.send(embed=embed)
 
 #Dare game.............................................................(Upgrade it on a daily basis)
 @client.command(pass_context=True)
@@ -120,6 +134,7 @@ async def dare(ctx):
     for i in range(0,10):
         rand = str(round(time(),7))
         rand2 = str(rand[::-1])
+    embed=discord.Embed(title="DARE" , description=l2[int(rand2[0])],color=0x44ff44)
     await ctx.send(l2[int(rand2[0])])
 
 #token key ..............................................................
