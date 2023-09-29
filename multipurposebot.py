@@ -50,6 +50,7 @@ async def connect(ctx):
     if (ctx.author.voice):
         channel = ctx.message.author.voice.channel
         await channel.connect()
+        await ctx.send("Connected")
       
     else:
         await ctx.send("Connect to the voice channel first")
