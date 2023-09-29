@@ -135,7 +135,7 @@ async def dare(ctx):
         rand = str(round(time(),7))
         rand2 = str(rand[::-1])
     embed=discord.Embed(title="DARE" , description=l2[int(rand2[0])],color=0x44ff44)
-    await ctx.send(l2[int(rand2[0])])
+    await ctx.send(embed=embed)
 
 #token key ..............................................................
 client.run("MTE1NDc3MzM5MjEzODk2OTIxMA.GPqNQP.cktcq3EOFMxaUxjPqQsmU770BYQpIQD-fh--8U")  #Important 
