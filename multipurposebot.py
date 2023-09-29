@@ -10,6 +10,7 @@ from youtube_dl import YoutubeDL
 intents = discord.Intents.all()
 client=commands.Bot(command_prefix ='&',intents=intents)
 
+
 #showing that the bot has started..................................
 @client.event
 async def on_ready():
@@ -137,6 +138,6 @@ async def dare(ctx):
         rand2 = str(rand[::-1])
     embed=discord.Embed(title="DARE" , description=l2[int(rand2[0])],color=0x44ff44)
     await ctx.send(embed=embed)
-
+    
 #token key ..............................................................
 client.run("MTE1NDc3MzM5MjEzODk2OTIxMA.GPqNQP.cktcq3EOFMxaUxjPqQsmU770BYQpIQD-fh--8U")  #Important 
