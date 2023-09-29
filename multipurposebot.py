@@ -4,12 +4,12 @@
 import discord
 from discord.ext import commands
 from time import time
+import youtube_dl
 from youtube_dl import YoutubeDL
 
 #intends and prefix commands .....................................
 intents = discord.Intents.all()
 client=commands.Bot(command_prefix ='&',intents=intents)
-
 
 #showing that the bot has started..................................
 @client.event
@@ -86,7 +86,7 @@ async def stop(ctx):
         await ctx.send("The voice has been stopped") 
     else:
         await ctx.send("Please connect to the voice channel first")
-                 
+
 #resume command ..........................................................       
 @client.command(pass_context=True)
 async def resume(ctx):
