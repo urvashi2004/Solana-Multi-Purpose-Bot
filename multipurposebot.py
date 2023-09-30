@@ -5,9 +5,8 @@ import discord
 from discord.ext import commands
 from time import time
 import youtube_dl
-from youtube_dl import YoutubeDL
-import asyncio
-import os
+from pytube import YouTube
+import yt_dlp
 
 #intends and prefix commands .....................................
 intents = discord.Intents.all()
@@ -103,25 +102,7 @@ async def resume(ctx):
         await ctx.send("Please connect to the voice channel first")
 
 #play command.............................................
-@client.command()
-async def play(ctx):
-    voice_client = ctx.voice_client
 
-    if not voice_client:
-        # If not in a voice channel, join first
-        if ctx.author.voice:
-            channel = ctx.author.voice.channel
-            await channel.connect()
-        else:
-            await ctx.send("Please connect to voice channel first")
-            return
-
-    if not os.path.isfile('Phir Bhi Tumko Chaahunga Song Arijit Singh.wav'):
-        await ctx.send("The audio file does not exist.")
-        return
-
-    voice_client.stop()
-    voice_client.play(discord.FFmpegPCMAudio('Phir Bhi Tumko Chaahunga Song Arijit Singh.wav'))
     
 #Truth game .................................................(Upgrade it on a daily basis)
 @client.command(pass_context=True)
