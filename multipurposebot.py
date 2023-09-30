@@ -6,6 +6,7 @@ from discord.ext import commands
 from time import time
 import youtube_dl
 from youtube_dl import YoutubeDL
+import asyncio
 
 #intends and prefix commands .....................................
 intents = discord.Intents.all()
@@ -16,7 +17,8 @@ client=commands.Bot(command_prefix ='&',intents=intents)
 async def on_ready():
     await client.change_presence(status=discord.Status.idle,activity=discord.Game(type=discord.ActivityType.listening,name='&commands'))
     print("Started")
-    
+
+        
 #status command .................................................
 @client.command()
 async def status(ctx):
@@ -55,7 +57,7 @@ async def connect(ctx):
       
     else:
         await ctx.send("Connect to the voice channel first")
- 
+
 #leave command .......................................................       
 @client.command(pass_context=True)
 async def leave(ctx):
