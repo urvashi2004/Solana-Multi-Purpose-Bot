@@ -8,10 +8,13 @@ import youtube_dl
 from pytube import YouTube
 import yt_dlp
 import datetime
+import random
+import os
 
 #intends and prefix commands .....................................
 intents = discord.Intents.all()
 client=commands.Bot(command_prefix ='&',intents=intents)
+songs_folder = "Songs"
 
 #showing that the bot has started..................................
 @client.event
@@ -109,7 +112,35 @@ async def resume(ctx):
         await ctx.send("Please connect to the voice channel first")
 
 #play command.............................................
+@client.command()
+async def play(ctx, *, song_choice: str = None):
+     voice_channel = ctx.author.voice.channel
 
+     voice_client = ctx.voice_client
+     if voice_client:
+        await voice_client.disconnect()
+    
+     voice_client = await voice_channel.connect()
+
+     songs = [f for f in os.listdir(songs_folder) if f.endswith('.mp3')]
+     if not songs:
+        await ctx.send("No songs found in the 'songs' folder.")
+        return
+
+     if song_choice:
+        song_choice = song_choice.lower()
+        matching_songs = [song for song in songs if song_choice in song.lower()]
+        if not matching_songs:
+            await ctx.send(f"No songs matching '{song_choice}' found.")
+            return
+        random_song = random.choice(matching_songs)
+     else:
+         random_song = random.choice(songs)
+
+     source = os.path.join(songs_folder, random_song)
+     voice_client.play(discord.FFmpegPCMAudio(source))
+     await ctx.send(f"Now playing: {random_song}")
+    
     
 #Truth game .................................................(Upgrade it on a daily basis)
 @client.command(pass_context=True)
