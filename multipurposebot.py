@@ -39,7 +39,6 @@ async def on_ready():
     await client.change_presence(status=discord.Status.idle,activity=discord.Game(type=discord.ActivityType.listening,name='&commands'))
     print("Started")
 
-        
 #status command .................................................
 @client.command()
 async def status(ctx):
@@ -130,12 +129,11 @@ async def resume(ctx):
 
 #play command.............................................
 @client.command()
-async def play(ctx, playlist_name: str = None):
+async def play(ctx, playlist_name: str = None, song_number: int = None):
     global current_song_index
 
     voice_channel = ctx.author.voice.channel
 
-    # Check if the bot is already connected to a voice channel
     voice_client = ctx.voice_client
     if voice_client:
         await voice_client.disconnect()
@@ -143,25 +141,23 @@ async def play(ctx, playlist_name: str = None):
     voice_client = await voice_channel.connect()
 
     if playlist_name:
-        # Check if the user input is a playlist name
         if playlist_name.lower() in playlists:
             selected_playlist = playlists[playlist_name.lower()]
-            if not selected_playlist:
-                await ctx.send(f"The '{playlist_name}' playlist is empty. Use the &add command to add songs to it.")
-                return
 
-            # Play the entire playlist sequentially
-            source = os.path.join(songs_folder, selected_playlist[current_song_index[playlist_name.lower()]])
-            voice_client.play(discord.FFmpegPCMAudio(source))
-            await ctx.send(f"Now playing: {selected_playlist[current_song_index[playlist_name.lower()]]}")
-
-            # Increment the current song index for the selected playlist
-            current_song_index[playlist_name.lower()] = (current_song_index[playlist_name.lower()] + 1) % len(selected_playlist)
+            if song_number is not None and 1 <= song_number <= len(selected_playlist):
+                song_index = song_number - 1  # Adjust for 0-based indexing
+                source = os.path.join(songs_folder, selected_playlist[song_index])
+                voice_client.play(discord.FFmpegPCMAudio(source))
+                await ctx.send(f"Now playing: {selected_playlist[song_index]}")
+            else:
+                await ctx.send("Invalid song number. Please specify a valid song number.")
         else:
             await ctx.send(f"The '{playlist_name}' playlist does not exist. Use the &createplaylist command to create it.")
     else:
         await ctx.send("Please provide a playlist name as input.")
 
+
+#create playlist..........................................
 @client.command()
 async def createplaylist(ctx, playlist_name: str):
     if playlist_name.lower() not in playlists:
@@ -172,6 +168,7 @@ async def createplaylist(ctx, playlist_name: str):
     else:
         await ctx.send(f"The playlist '{playlist_name}' already exists.")
 
+#add songs to playlist.........................
 @client.command()
 async def add(ctx, playlist_name: str, *, song_choice: str):
     if playlist_name.lower() not in playlists:
@@ -190,11 +187,11 @@ async def add(ctx, playlist_name: str, *, song_choice: str):
         await ctx.send(f"No songs matching '{song_choice}' found in the 'songs' folder.")
         return
 
-    # Add the matching songs to the specified playlist
     playlists[playlist_name.lower()].extend(matching_songs)
     await ctx.send(f"{len(matching_songs)} song(s) added to the '{playlist_name}' playlist.")
     save_playlists()
 
+#Showplaylist songs ...........................................
 @client.command()
 async def showplaylist(ctx, playlist_name: str):
     if playlist_name.lower() not in playlists:
@@ -211,7 +208,66 @@ async def showplaylist(ctx, playlist_name: str):
     for i, song in enumerate(selected_playlist, start=1):
         await ctx.send(f"{i}. {song}")
 
+#Delete playlists.......................
+@client.command()
+async def deleteplaylist(ctx, playlist_name: str):
+    if playlist_name.lower() in playlists:
+        del playlists[playlist_name.lower()]
+        await ctx.send(f"Playlist '{playlist_name}' deleted.")
+        save_playlists()
+    else:
+        await ctx.send(f"The playlist '{playlist_name}' does not exist.")
+
+#Show all playlists..........................
+@client.command()
+async def showplaylists(ctx):
+    if not playlists:
+        await ctx.send("No playlists found.")
+        return
+
+    playlist_names = list(playlists.keys())
+    await ctx.send(f"Total playlists: {len(playlist_names)}")
+    await ctx.send("Playlist names:")
+    await ctx.send("\n".join(playlist_names))
+
+#Total songs available.................
+@client.command()
+async def showallsongs(ctx):
+    songs = [f for f in os.listdir(songs_folder) if f.endswith('.mp3')]
+    total_songs = len(songs)
     
+    if total_songs > 0:
+        song_list = "\n".join(songs)
+        await ctx.send(f"Total songs in the 'songs' folder: {total_songs}\nSongs:\n{song_list}")
+    else:
+        await ctx.send("No songs found in the 'songs' folder.")
+
+#edit playlist......................
+@client.command()
+async def deletesong(ctx, playlist_name: str, song_number: int=None):
+    if not playlist_name:
+        await ctx.send("Please provide a playlist name.")
+        return
+
+    if not song_number:
+        await ctx.send("Please specify the song number to remove.")
+        return
+
+    if playlist_name.lower() not in playlists:
+        await ctx.send(f"The '{playlist_name}' playlist does not exist.")
+        return
+
+    selected_playlist = playlists[playlist_name.lower()]
+
+    if 1 <= song_number <= len(selected_playlist):
+        song_index = song_number - 1
+        removed_song = selected_playlist.pop(song_index)
+        save_playlists()  
+
+        await ctx.send(f"Removed song '{removed_song}' from the '{playlist_name}' playlist.")
+    else:
+        await ctx.send("Invalid song number. Please specify a valid song number.")
+
 #Truth game .................................................(Upgrade it on a daily basis)
 @client.command(pass_context=True)
 async def truth(ctx):
