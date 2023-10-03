@@ -7,6 +7,7 @@ from time import time
 import youtube_dl
 from pytube import YouTube
 import yt_dlp
+import datetime
 
 #intends and prefix commands .....................................
 intents = discord.Intents.all()
@@ -40,7 +41,13 @@ async def ping(ctx):
 #show commands command ............................................   
 @client.command()
 async def commands(ctx):
-    await ctx.send("status\nowners\nconnect\nleave\ntruth\ndare\npause\nresume\nstop\nping")
+    embed=discord.Embed(title="Commands",description="status->Shows the status of the bot\nowners-> Shows the owners\nconnect->Connect to voice channel\nleave->Leaves the voice channel\ntruth->Truth game\ndare->Dare game\npause->Pause the music\nresume->Resume the music\nstop->Stop the paying music\nping->Tells the ping of the bot\ntime->Shows the perfect time and date")
+    await ctx.send(embed=embed)
+    
+@client.command()
+async def time(ctx):
+    current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    await ctx.send(f'The current time is: {current_time}')
 
 #owners command ...................................................
 @client.command()
