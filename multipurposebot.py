@@ -60,9 +60,21 @@ async def ping(ctx):
 #show commands command ............................................   
 @client.command()
 async def commands(ctx):
-    embed=discord.Embed(title="Commands",description="status->Shows the status of the bot\nowners-> Shows the owners\nconnect->Connect to voice channel\nleave->Leaves the voice channel\ntruth->Truth game\ndare->Dare game\npause->Pause the music\nresume->Resume the music\nstop->Stop the paying music\nping->Tells the ping of the bot\ntime->Shows the perfect time and date")
+    embed=discord.Embed(title="Commands",description="status->Shows status of bot\nmusic_commands->Shows music commands\ntruth_daregame->Shows truth and dare game commands\nping->Shows the ping of the bot\ntime->Shows the time\nowners->Shows the owners")
     await ctx.send(embed=embed)
-    
+
+#individual command list .......................................
+@client.command()
+async def music_commands(ctx):
+    embed=discord.Embed(title="Music Commands",description="connect->Connects to vc\npause->Pause the song\nresume->Resume the song\nstop->Stops the song \nplay (playlist_name)->Plays the playlist\ncreateplaylist (playlist_name)->Create the playlist\ndeleteplaylist (playlist_name)->Delete the playlist\nshowplaylists->Shows the total number of playlists\nshowplaylist (playlist_name)->Shows the songs in the playlist\nshowallsongs->Shows all available songs\ndeletesong (playlist_name)->Delets the song from the playlist")
+    await ctx.send(embed=embed)
+
+@client.command()
+async def truth_daregame(ctx):
+    embed=discord.Embed(title="Truth & Dare",description="truth->Shows a random truth\ndare->Shows a random dare")
+    await ctx.send(embed=embed)
+
+#time command .......................................................
 @client.command()
 async def time(ctx):
     current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
