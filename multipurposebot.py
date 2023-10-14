@@ -48,13 +48,13 @@ async def status(ctx):
 @client.command()
 async def ping(ctx):
     if round(client.latency * 1000) <= 50:
-        embed=discord.Embed(title="PING", description=f":ping_pong: The ping is **{round(client.latency *1000)}** milliseconds!", color=0x44ff44)
+        embed=discord.Embed(title="PING", description=f"The ping is **{round(client.latency *1000)}** milliseconds!", color=0x44ff44)
     elif round(client.latency * 1000) <= 100:
-        embed=discord.Embed(title="PING", description=f":ping_pong: The ping is **{round(client.latency *1000)}** milliseconds!", color=0xffd000)
+        embed=discord.Embed(title="PING", description=f"The ping is **{round(client.latency *1000)}** milliseconds!", color=0xffd000)
     elif round(client.latency * 1000) <= 200:
-        embed=discord.Embed(title="PING", description=f":ping_pong: The ping is **{round(client.latency *1000)}** milliseconds!", color=0xff6600)
+        embed=discord.Embed(title="PING", description=f"The ping is **{round(client.latency *1000)}** milliseconds!", color=0xff6600)
     else:
-        embed=discord.Embed(title="PING", description=f":ping_pong: The ping is **{round(client.latency *1000)}** milliseconds!", color=0x990000)
+        embed=discord.Embed(title="PING", description=f"The ping is **{round(client.latency *1000)}** milliseconds!", color=0x990000)
     await ctx.send(embed=embed)
 
 #show commands command ............................................   
@@ -83,7 +83,7 @@ async def time(ctx):
 #owners command ...................................................
 @client.command()
 async def owners(ctx):
-    await ctx.send("This is an initiative set by amateurs")     
+    await ctx.send("This is an initiative set by amateurs\n1.Urvashi Yadav(Leader)\n2.Kartik Passricha\n3.Parth Batra\n4.Swastik Prakash")     
 
 #connect command .....................................................
 @client.command(pass_context=True)
