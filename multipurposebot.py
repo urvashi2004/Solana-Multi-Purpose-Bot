@@ -317,4 +317,4 @@ async def dare(ctx):
     await ctx.send(embed=embed)
     
 #token key ..............................................................
-client.run("MTE1NDc3MzM5MjEzODk2OTIxMA.GPqNQP.cktcq3EOFMxaUxjPqQsmU770BYQpIQD-fh--8U")  #Important 
+client.run("MTE1NDc3MzM5MjEzODk2OTIxMA.GbZvUp.2HWzVPM-Kutkc0ohgsHa8fIkLO8jrx8EbNTifs")  #Important 
